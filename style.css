@@ -16,7 +16,7 @@
   font-family: "Inter", sans-serif;
 }
 
-[data-theme="dark"] {
+body[data-theme="dark"] {
   --bg: #0f172a;
   --bg-soft: rgba(15, 23, 42, 0.8);
   --glass: rgba(30, 41, 59, 0.75);
@@ -38,7 +38,7 @@ body {
   min-height: 100vh;
 }
 
-[data-theme="dark"] body {
+body[data-theme="dark"] {
   background: radial-gradient(circle at top, #1e293b, #0f172a 70%);
 }
 
@@ -166,6 +166,7 @@ select {
   border: 1px solid var(--border);
   background: var(--bg-soft);
   color: var(--text);
+  width: 100%;
 }
 
 .btn {
@@ -377,6 +378,13 @@ select {
   box-shadow: var(--shadow);
 }
 
+.modal-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -389,6 +397,11 @@ select {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 12px;
   margin-bottom: 12px;
+}
+
+.form-grid > div {
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-actions {
