@@ -99,6 +99,7 @@ const loadState = () => {
 };
 
 const updateTheme = () => {
+  document.body.setAttribute('data-theme', state.theme);
   app.setAttribute('data-theme', state.theme);
   themeToggle.textContent = state.theme === 'light' ? '🌙' : '☀️';
 };
