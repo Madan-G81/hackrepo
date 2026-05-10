@@ -54,13 +54,6 @@ No backend required.
 
 ---
 
-## ☁️ Deploy to github
-Deployment done in github
-Build and deployment
-
-
----
-
 ## 📌 Tech Stack
 - HTML
 - CSS
