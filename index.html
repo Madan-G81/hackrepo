@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" data-theme="light">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">💳</div>
+        <div>
+          <h1>FinTrack</h1>
+          <p>Expense Tracker</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-link active" data-target="dashboard">Dashboard</button>
+        <button class="nav-link" data-target="transactions">Transactions</button>
+        <button class="nav-link" data-target="analytics">Analytics</button>
+        <button class="nav-link" data-target="settings">Settings</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="theme-toggle">
+          <span>Theme</span>
+          <button id="themeToggle" class="toggle">🌙</button>
+        </div>
+        <div class="budget-box">
+          <label for="budgetInput">Monthly Budget</label>
+          <input type="number" id="budgetInput" placeholder="Set budget" />
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2>Hello!</h2>
+          <p class="subtitle">Track your spending effortlessly.</p>
+        </div>
+        <div class="topbar-actions">
+          <select id="currencySelect" class="select">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="INR">INR (₹)</option>
+            <option value="JPY">JPY (¥)</option>
+          </select>
+          <button id="exportCsv" class="btn secondary">Export CSV</button>
+          <button id="downloadReport" class="btn secondary">Download Report</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="cards">
+          <div class="card gradient">
+            <h3>Total Balance</h3>
+            <p class="amount" id="totalBalance">$0</p>
+            <span class="trend">Updated in real time</span>
+          </div>
+          <div class="card glass">
+            <h3>Total Income</h3>
+            <p class="amount" id="totalIncome">$0</p>
+            <span class="trend positive">+ earnings</span>
+          </div>
+          <div class="card glass">
+            <h3>Total Expense</h3>
+            <p class="amount" id="totalExpense">$0</p>
+            <span class="trend negative">- spending</span>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h4>Monthly Spending Summary</h4>
+            <canvas id="monthlyBar"></canvas>
+          </div>
+          <div class="summary-card">
+            <h4>Category Breakdown</h4>
+            <canvas id="categoryPie"></canvas>
+          </div>
+          <div class="summary-card">
+            <h4>Spending Trend</h4>
+            <div id="trendLine" class="trend-line"></div>
+          </div>
+        </div>
+
+        <div class="reminder">
+          <div>
+            <h4>Daily Expense Reminder</h4>
+            <p>Set a quick reminder to log your expenses each day.</p>
+          </div>
+          <button class="btn" id="reminderBtn">Enable Reminder UI</button>
+        </div>
+      </section>
+
+      <section id="transactions" class="section">
+        <div class="section-header">
+          <h3>Transactions</h3>
+          <button class="btn" id="openModal">+ Add Transaction</button>
+        </div>
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search transactions" />
+          <select id="typeFilter">
+            <option value="all">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <select id="categoryFilter"></select>
+          <input type="date" id="dateFilter" />
+        </div>
+        <div id="transactionsList" class="transactions-list"></div>
+        <div id="emptyState" class="empty-state">
+          <div class="illustration">📊</div>
+          <h4>No transactions yet</h4>
+          <p>Add your first income or expense to see insights.</p>
+        </div>
+      </section>
+
+      <section id="analytics" class="section">
+        <div class="analytics-grid">
+          <div class="summary-card">
+            <h4>Spending by Category</h4>
+            <canvas id="categoryPieLarge"></canvas>
+          </div>
+          <div class="summary-card">
+            <h4>Monthly Expenses</h4>
+            <canvas id="monthlyBarLarge"></canvas>
+          </div>
+          <div class="summary-card">
+            <h4>Budget Status</h4>
+            <div class="budget-status" id="budgetStatus"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="settings" class="section">
+        <div class="summary-card">
+          <h4>Preferences</h4>
+          <div class="settings-grid">
+            <label>Currency</label>
+            <select id="currencySelectSettings" class="select"></select>
+            <label>Theme</label>
+            <button id="themeToggleSettings" class="btn secondary">Toggle Theme</button>
+            <label>Reset All Data</label>
+            <button id="resetData" class="btn danger">Reset</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button class="fab" id="fabButton">+</button>
+
+    <div id="transactionModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Add Transaction</h3>
+          <button id="closeModal" class="icon-btn">✕</button>
+        </div>
+        <form id="transactionForm">
+          <div class="form-grid">
+            <div>
+              <label>Type</label>
+              <select id="typeInput" required>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+            <div>
+              <label>Amount</label>
+              <input type="number" id="amountInput" placeholder="0.00" required />
+            </div>
+            <div>
+              <label>Category</label>
+              <select id="categoryInput" required></select>
+            </div>
+            <div>
+              <label>Date</label>
+              <input type="date" id="dateInput" required />
+            </div>
+          </div>
+          <div>
+            <label>Notes</label>
+            <textarea id="noteInput" rows="3" placeholder="Add a note"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn">Save Transaction</button>
+            <button type="button" class="btn secondary" id="cancelEdit">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
