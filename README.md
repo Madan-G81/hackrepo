@@ -54,17 +54,10 @@ No backend required.
 
 ---
 
-## ☁️ Deploy to Vercel
-1. Go to https://vercel.com
-2. Import your GitHub repo
-3. Click **Deploy**
+## ☁️ Deploy to github
+Deployment done in github
+Build and deployment
 
----
-
-## ☁️ Deploy to Netlify
-1. Go to https://netlify.com
-2. Choose **New site from Git**
-3. Select your repo and deploy with default settings
 
 ---
 
